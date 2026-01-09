@@ -98,7 +98,8 @@ For random data:
 
 This is not a model failure — it is a direct consequence of the data having no temporal structure.
 
-![Latent state evolution on random data (with memory)](plots/FIGURE%201%20-%20Latent%20state%20evolution%20on%20random%20data%20(with%20memory).png)
+![Latent state evolution on random data (with memory)](plots/FIGURE%201-%20Latent%20state%20evolution%20on%20random%20data%20(with%20memory).png)
+
 
 <!-- FIGURE 2: Latent state evolution on random data (no memory) -->
 
