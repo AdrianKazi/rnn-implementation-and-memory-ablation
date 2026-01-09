@@ -12,11 +12,11 @@ Recurrent Neural Networks (RNNs) are among the simplest neural architectures des
 
 The core idea is straightforward: we feed a time series into a neural network **step by step**, where each step corresponds to one point in time.
 
-At time step `t`, the model receives an input vector `x_t` and produces a prediction `ŷ_{t+1}` for the next time step. The prediction is compared with the true next value using Mean Squared Error:
+At time step `t`, the model receives an input vector $x_t$ and produces a prediction $\hat{x}_{t+1}$ for the next time step. The prediction is compared with the true next value using Mean Squared Error:
 
-\[
+$$
 \text{MSE}(\hat{x}_{t+1}, x_{t+1})
-\]
+$$
 
 Training minimizes this loss via gradient descent over the entire sequence.
 
@@ -42,21 +42,21 @@ More specifically:
 
 At each time step, the model receives:
 
-\[
+$$
 z_t = \text{cat}(x_t, y_{t-1})
-\]
+$$
 
 and produces a new latent state:
 
-\[
+$$
 y_t = \sigma(W z_t)
-\]
+$$
 
 The latent state is then mapped back to the input space using a readout layer:
 
-\[
+$$
 \hat{x}_{t+1} = W_{\text{out}} y_t + b_{\text{out}}
-\]
+$$
 
 The latent vector `y` is not a prediction by itself — it acts as internal state.
 
@@ -66,23 +66,25 @@ The latent vector `y` is not a prediction by itself — it acts as internal stat
 
 If the data is randomly generated and has no temporal dependence:
 
-\[
+$$
 p(x_t \mid x_{t-1}) = p(x_t)
-\]
+$$
 
 then the past carries no information about the future.
 
 In this case, the following two setups should behave similarly:
 
-- **With memory:**  
-  \[
-  z_t = \text{cat}(x_t, y_{t-1})
-  \]
+- **With memory:**
 
-- **Without memory:**  
-  \[
-  z_t = x_t
-  \]
+$$
+z_t = \text{cat}(x_t, y_{t-1})
+$$
+
+- **Without memory:**
+
+$$
+z_t = x_t
+$$
 
 because there is nothing meaningful to store in the latent state.
 
@@ -155,14 +157,16 @@ Each feature is normalized independently.
 Two models are trained:
 
 1. **Memory-based model**
-   \[
-   z_t = \text{cat}(x_t, y_{t-1})
-   \]
+
+$$
+z_t = \text{cat}(x_t, y_{t-1})
+$$
 
 2. **Memory-less model**
-   \[
-   z_t = x_t
-   \]
+
+$$
+z_t = x_t
+$$
 
 All other components (loss, optimizer, hidden size) are kept identical.
 
@@ -205,7 +209,7 @@ Without memory:
 - The model converges to a fixed point
 - The rollout becomes flat and unresponsive
 
-<!-- FIGURE 6: Rollout with memory and Rollout without memory-->
+<!-- FIGURE 6: Rollout with memory and Rollout without memory -->
 
 ---
 
@@ -226,4 +230,4 @@ This behavior is a direct consequence of the model architecture, not an implemen
 
 This repository is intentionally minimal.
 
-The focus is not on performance, benchmarks, or hyperparameter tuning, but on isolating and understanding the **mechanism of memory** in recurrent models.
+The focus is not on performance, benchmarks, or hyperparameter tuning, but on isolating and understanding the
