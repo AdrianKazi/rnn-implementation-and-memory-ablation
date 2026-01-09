@@ -90,13 +90,30 @@ because there is nothing meaningful to store in the latent state.
 
 ### Outcome
 
-For random data:
+For randomly generated data, each time step is independent from the previous one:
 
-- Adding a latent state does not improve behavior
-- The recurrent pathway receives no meaningful temporal signal
-- The model naturally exhibits similar dynamics with or without memory
+$$
+p(x_t \mid x_{t-1}) = p(x_t)
+$$
 
-This is not a model failure — it is a direct consequence of the data having no temporal structure.
+This means the past carries no information about the future. There is nothing to memorize.
+
+In this case, adding a latent state does not help. Using
+
+$$
+z = \text{cat}(x_t, y_{t-1})
+$$
+
+or simply
+
+$$
+z = x_t
+$$
+
+leads to nearly identical behavior, because the latent vector has no meaningful structure to store. The recurrent pathway receives no informative gradient signal and therefore does not encode meaningful temporal structure.
+
+This is not a model failure. It is a direct consequence of the data having no temporal structure.
+
 
 | ![](plots/FIGURE%201-%20Latent%20state%20evolution%20on%20random%20data%20(with%20memory).png) | ![](plots/FIGURE%202-%20Latent%20state%20evolution%20on%20random%20data%20(no%20memory).png) |
 |---|---|
@@ -127,7 +144,8 @@ After training, the model is run in free-running mode:
 
 This allows us to observe whether the model can extrapolate temporal dynamics beyond observed data.
 
-<!-- FIGURE 3: Observed history vs rollout on random data -->
+![Observed history vs rollout on random data](plots/FIGURE%203-%20Observed%20history%20vs%20rollout%20on%20random%20data.png)
+
 
 ---
 
@@ -149,7 +167,7 @@ The assumption is not strict mathematical dependency, but shared market dynamics
 
 Each feature is normalized independently.
 
-<!-- FIGURE 4: Normalized financial time series -->
+![Normalized financial time series](plots/FIGURE%204-%20Normalized%20financial%20time%20series.png)
 
 ---
 
@@ -180,7 +198,7 @@ All other components (loss, optimizer, hidden size) are kept identical.
 - The memory-based model exhibits different convergence behavior
 - The no-memory model converges toward a degenerate solution
 
-<!-- FIGURE 5: Training loss (with memory vs no memory) and Hidden state evolution (with memory vs no memory) -->
+![Training loss and Hidden vectors](plots/FIGURE%205-%20Training%20loss%20and%20Hidden%20vectors.png)
 
 ### Hidden State Dynamics
 
@@ -210,7 +228,7 @@ Without memory:
 - The model converges to a fixed point
 - The rollout becomes flat and unresponsive
 
-<!-- FIGURE 6: Rollout with memory and Rollout without memory -->
+![Hidden state evolution](plots/FIGURE%206-%20Hidden%20state%20evolution.png)
 
 ---
 
