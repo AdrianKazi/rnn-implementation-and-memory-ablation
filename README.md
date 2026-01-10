@@ -243,10 +243,3 @@ This experiment demonstrates that:
 
 This behavior is a direct consequence of the model architecture, not an implementation artifact.
 
----
-
-## Scope
-
-This repository is intentionally minimal.
-
-The focus is not on performance, benchmarks, or hyperparameter tuning, but on isolating and understanding the
